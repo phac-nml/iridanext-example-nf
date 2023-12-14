@@ -3,6 +3,9 @@
 //
 
 import nextflow.Nextflow
+import java.nio.file.PathMatcher
+import java.nio.file.FileSystems
+import java.nio.file.Path
 
 class WorkflowMain {
 
@@ -44,6 +47,23 @@ class WorkflowMain {
         // Check input has been provided
         if (!params.input) {
             Nextflow.error("Please provide an input samplesheet to the pipeline e.g. '--input samplesheet.csv'")
+        }
+    }
+
+    public static void testMatching(params, log) {
+        if (params.outdir != null) {
+            Path assembly_file = Nextflow.file(params.outdir) / "assembly" / "SAMPLE1.assembly.fa.gz"
+            Path unmatched_file = Nextflow.file(params.outdir) / "assembly" / "unmatched.assemblyN.fa.gz"
+            PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**/assembly/*.assembly.fa.gz")
+            log.info "testMatching, assembly_file=${assembly_file}, unmatched_file=${unmatched_file}"
+            List f = [assembly_file, unmatched_file]
+            f.each {
+                if(matcher.matches(it)) {
+                    log.info "Matched [${it}] using [${matcher}]"
+                } else {
+                    log.info "Unmatched [${it}] using [${matcher}]"
+                }
+            }
         }
     }
 }

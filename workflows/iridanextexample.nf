@@ -116,6 +116,10 @@ workflow.onComplete {
     if (params.hook_url) {
         NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
     }
+
+    log.info "Before testMatching: params.outdir=${params.outdir}"
+    WorkflowMain.testMatching(params, log)
+    log.info "After testMatching"
 }
 
 /*
