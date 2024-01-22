@@ -20,7 +20,7 @@ process IRIDA_NEXT_OUTPUT {
     def samples_data_dir = "samples_data"
     """
     echo "column1,b,c" > output.csv
-    echo "SAMPLE1,2,3" >> output.csv
+    echo "emerging-pathogen,2,3" >> output.csv
     echo "SAMPLE2,4,5" >> output.csv
     echo "SAMPLE3,6,7" >> output.csv
     echo '{"SAMPLE1": {"json_b": "10", "json_c": "20", "k": {"a": "1", "b": "2"}}, "SAMPLE2": {"colours": ["red", "green"]}}' > output.json
